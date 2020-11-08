@@ -1,0 +1,14 @@
+.error {
+  align-items: center;
+  background-color: #ffcccc;
+  border: 1px solid #ffcccc;
+  border-radius: 5px;
+  display: flex;
+  margin-bottom: 12px;
+  max-width: 400px;
+  padding: 0.6rem 0.8rem;
+}
+
+.error > svg {
+  margin-right: 4px;
+}

@@ -1,0 +1,24 @@
+.register {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+}
+
+.register__left {
+  padding: 4rem 1.2rem 0 4rem;
+}
+
+.register__left,
+.register__right {
+  height: 100%;
+  width: 50%;
+}
+
+.register__right {
+  padding: 4rem 4rem 0 1.2rem;
+}
+
+.register__title {
+  margin: 1rem 0;
+}
