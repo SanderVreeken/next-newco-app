@@ -23,7 +23,7 @@ const typeDefs = gql`
     }
     # A query root is required to make graphql actually work.
     type Query {
-        dummy: String
+        validateUser(username: String!, password: String!): User!
     }
     type User {
         _id: ID
@@ -59,7 +59,11 @@ const resolvers = {
                         password: encrypt
                     }        
                     await db.collection('users').insertOne(user)
-                    const token = generateToken(user)
+                    const token = generateToken({
+                        _id: user._id,
+                        email: user.email,
+                        username: user.username
+                    })
                     return {
                         _id: user._id,
                         createdAt: user.createdAt,
@@ -74,8 +78,39 @@ const resolvers = {
         }
     },
     Query: {
-        dummy() {
-            return 'Dummy, should be replaced first.'
+        async validateUser(_, { username, password }) {
+            const { db } = await connectToDatabase()
+
+            if (username.trim() === '') {
+                throw new Error('Username must not be empty.')
+            } else if (password.trim() === '') {
+                throw new Error('Password must not be empty.')
+            } else {
+                const user = await db.collection('users').findOne({ username: username })
+
+                if (!user) {
+                    throw new Error('User has not been found, please verify.')
+                }
+    
+                const match = await bcrypt.compare(password, user.password)
+                if (!match) {
+                    throw new Error('Password is not correct, please verify.')
+                }
+    
+                const token = generateToken({
+                    _id: user._id,
+                    email: user.email,
+                    username: user.username
+                })
+    
+                return {
+                    _id: user._id,
+                    createdAt: user.createdAt,
+                    email: user.email,
+                    token,
+                    username: user.username, 
+                }   
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 import { AiOutlineBell } from 'react-icons/ai'
-import styles from '../styles/Error.module.css'
+import styles from '../styles/Alert.module.css'
 
-export default function Error({ error }) {
+export default function Alert({ error }) {
     return (
-        <div className={styles.error}>
+        <div className={styles.alert}>
             <AiOutlineBell />
             {<p>{error}</p>}
         </div>

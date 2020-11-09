@@ -1,9 +1,10 @@
+import Link from 'next/link'
 import { request } from 'graphql-request'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
-import Error from '../components/Error'
-import Form from '../components/Form'
+import Alert from '../components/Alert'
+import AuthForm from '../components/AuthForm'
 import { useStateValue } from '../components/StateProvider'
 
 import styles from '../styles/Register.module.css'
@@ -56,7 +57,6 @@ export default function Register() {
         
         try {
             const data = await createUser({ email, username, password, passwordConfirm })
-            console.log(data)
             dispatch({
                 type: 'UPDATE_USER',
                 item: {
@@ -79,8 +79,9 @@ export default function Register() {
             </div>
             <div className={styles.register__right}>
                 <h1 className={styles.register__title}>Register</h1>
-                {error && <Error error={error} />}
-                <Form onSubmit={registerUser} fields={fields} />
+                {error && <Alert error={error} />}
+                <AuthForm buttonText='Register' fields={fields} onSubmit={registerUser} />
+                <p className={styles.register__login}>If you already got an account, <Link href='/login'>click here</Link> to login.</p>
             </div>
         </div>
     )
