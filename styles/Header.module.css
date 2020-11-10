@@ -4,4 +4,15 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
+  width: 100%;
+}
+
+.header__icon svg {
+  color: #111;
+  height: 24px;
+  width: 24px;
+}
+
+.header__right {
+  display: flex;
 }

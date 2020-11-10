@@ -1,0 +1,27 @@
+.new {
+  overflow: hidden;
+  width: 100vw;
+}
+
+.new__authElements {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.new__productHeader {
+  border-bottom: 1px solid #e6ecf0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 2rem;
+  width: 100%;
+}
+
+.new__productHeader button {
+  font-size: 12px;
+}
+
+.new__productHeaderButtons {
+  display: flex;
+}

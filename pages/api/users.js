@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
 import { ApolloServer, gql } from 'apollo-server-micro'
 
 import { connectToDatabase } from '../../utils/mongodb'

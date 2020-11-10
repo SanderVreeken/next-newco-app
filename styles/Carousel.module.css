@@ -1,0 +1,8 @@
+.carousel__title {
+  padding: 0.8rem 1rem 0;
+}
+
+.carousel__slider {
+  display: flex;
+  overflow-x: scroll;
+}

@@ -1,0 +1,12 @@
+.productCard {
+  padding: 1rem;
+}
+
+.productCard__image {
+  background-image: url("/images/SanderVreeken.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 224px;
+  width: 162px;
+}

@@ -1,0 +1,14 @@
+.productForm {
+  padding-top: 42px;
+  width: 560px;
+}
+
+.productForm label {
+  font-size: 14px;
+}
+
+.productForm__field {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 8px;
+}

@@ -1,0 +1,4 @@
+.authForm button,
+.authForm input {
+  max-width: 400px;
+}
