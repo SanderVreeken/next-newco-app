@@ -7,8 +7,53 @@
   font-size: 14px;
 }
 
+.productForm__basic {
+  display: flex;
+  justify-content: space-between;
+}
+
+.productForm__dropdown {
+  appearance: none;
+  border: 0;
+  color: #111;
+  font-size: 16px;
+  margin: 0 4px 0 0;
+  padding: 0.6rem 0.8rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
 .productForm__field {
   display: flex;
   flex-direction: column;
   padding: 10px 0 8px;
+}
+
+.productForm__image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid #e6ecf0;
+  border-radius: 5px;
+  height: 200px;
+  width: 152px;
+}
+
+.productForm__mainFields {
+  padding-right: 0.8rem;
+  width: 100%;
+}
+
+.productForm__price {
+  align-items: center;
+  border: 1px solid #e6ecf0;
+  border-radius: 5px;
+  display: flex;
+  max-height: 43px;
+}
+
+.productForm__price input {
+  border: 0;
+  margin: 0;
+  width: 100%;
 }

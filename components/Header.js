@@ -1,7 +1,7 @@
 import Anchor from './Anchor'
 import Button from './Button'
 import { useRouter } from 'next/router'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlinePieChart } from 'react-icons/ai'
 
 import { useStateValue } from '../components/StateProvider'
 
@@ -53,7 +53,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.header__icon}>
-                <Anchor child={<AiOutlineShoppingCart />} href='/' />
+                <Anchor child={<AiOutlinePieChart />} href='/' />
             </div>
             {renderHeaderRight(user)}
         </header>

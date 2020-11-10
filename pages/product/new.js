@@ -11,11 +11,16 @@ import styles from '../../styles/New.module.css'
 import Button from '../../components/Button'
 
 const INSERT_PRODUCT_QUERY = /* GraphQL */ `
-    mutation($title: String!, $description: String!, $published: Boolean!, $username: String!) {
-        createProduct(title: $title, description: $description, published: $published, username: $username) {
+    mutation($title: String!, $description: String!, $amount: Int!, $currency: String!, $photo: String!, $published: Boolean!, $username: String!) {
+        createProduct(title: $title, description: $description, amount: $amount, currency: $currency, photo: $photo, published: $published, username: $username) {
             _id
             title
             description
+            photo
+            price {
+                amount
+                currency
+            }
             published
             user {
                 _id
@@ -33,15 +38,20 @@ const createProduct = variables => {
 export default function New() {
     const router = useRouter()
     const [formData, setFormData] = useState({
+        amount: 0,
+        currency: 'USD',
         title: '',
-        description: ''
+        description: '',
+        photo: null,
     })
     const [isLoading, setIsLoading] = useState(true)
     const [{ user }, dispatch] = useStateValue()
     const basicFields = [{
-        name: 'title'
+        name: 'title',
+        type: 'text'
     }, {
-        name: 'description'
+        name: 'description',
+        type: 'text'
     }]
 
     // The hook is used to check whether the user is logged in and will redirect otherwisw before rendering most of the page.
@@ -63,21 +73,38 @@ export default function New() {
         }
     }, [])
 
-    const handleFormData = (event) => {
+    const handleFormData = (event, number) => {
         setFormData({
             ...formData,
-            [event.target.name]: event.target.value
+            [event.target.name]: number ? parseInt(event.target.value) : event.target.value
         })
+    }
+
+    const handlePhotoData = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+
+        reader.onload = () => {
+            setFormData({
+                ...formData,
+                photo: reader.result
+            })
+            console.log(formData)
+        }
     }
 
     const registerProduct = async (publishBool) => {
         const title = formData.title
         const description = formData.description
+        const amount = formData.amount
+        const currency = formData.currency
+        const photo = formData.photo
         const published = publishBool
         const username = user.username
 
         try {
-            const data = await createProduct({ title, description, published, username })
+            const data = await createProduct({ title, description, amount, currency, photo, published, username })
             console.log(data)
             router.push('/')
         } catch(error) {
@@ -100,7 +127,7 @@ export default function New() {
                         <Button background='#0076ff' border='#0076ff' color='white' hoverBackground='white' hoverBorder='#0076ff' hoverColor='#0076ff' onClick={() => registerProduct(true)} text='Save & Publish' type='button' />
                     </div>
                 </div>
-                <ProductForm basicFields={basicFields} onChange={handleFormData} />
+                <ProductForm basicFields={basicFields} data={formData} onFieldChange={handleFormData} onPhotoChange={handlePhotoData} />
             </div>
         )
     }

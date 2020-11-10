@@ -1,19 +1,28 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
+import { ObjectID } from 'mongodb'
 
 import { connectToDatabase } from '../../utils/mongodb'
 
 const typeDefs = gql`
     type Mutation {
-        createProduct(title: String!, description: String!, published: Boolean!, username: String!): Product!
+        createProduct(title: String!, description: String!, amount: Int!, currency: String!, photo: String! published: Boolean!, username: String!): Product!
     }
     # A query root is required to make graphql actually work.
     type Query {
+        readProduct(_id: ID!): Product!
         readProducts: [Product]!
+    }
+    type Price {
+        currency: String,
+        amount: Int
     }
     type Product {
         _id: ID
+        createdAt: String,
         title: String
         description: String
+        photo: String
+        price: Price
         published: Boolean
         user: User
     }
@@ -26,7 +35,7 @@ const typeDefs = gql`
 
 const resolvers = {
     Mutation: {
-        async createProduct(_, { title, description, published, username }) {
+        async createProduct(_, { title, description, amount, currency, photo, published, username }) {
             const { db } = await connectToDatabase()
 
             if (title.trim() === '') {
@@ -40,6 +49,11 @@ const resolvers = {
                     createdAt: new Date().toISOString(),
                     title,
                     description,
+                    photo,
+                    price: {
+                        amount,
+                        currency
+                    },
                     published,
                     user: {
                         _id: user._id,
@@ -54,6 +68,11 @@ const resolvers = {
                     createdAt: product.createdAt,
                     title,
                     description,
+                    photo,
+                    price: {
+                        amount,
+                        currency
+                    },
                     published,
                     user: {
                         _id: user._id,
@@ -65,6 +84,12 @@ const resolvers = {
         }
     },
     Query: {
+        async readProduct(_, { _id }) {
+            const { db } = await connectToDatabase()
+
+            const product = await db.collection('products').findOne({ _id: ObjectID(_id), published: true })
+            return product
+        },
         async readProducts() {
             const { db } = await connectToDatabase()
 

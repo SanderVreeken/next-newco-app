@@ -1,0 +1,33 @@
+.product {
+  padding-top: 42px;
+  width: 560px;
+}
+
+.product__basic {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 8px;
+}
+
+.product__image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  height: 200px;
+  width: 152px;
+}
+
+.product__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product__pricing {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 8px;
+  width: 100%;
+}

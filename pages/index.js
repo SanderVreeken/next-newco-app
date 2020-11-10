@@ -14,6 +14,7 @@ const READ_PRODUCTS_QUERY = /* GraphQL */ `
         _id
         title
         description
+        photo
         published
         user {
             _id

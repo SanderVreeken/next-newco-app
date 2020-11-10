@@ -1,5 +1,9 @@
+.carousel {
+  padding: 0 0.6rem;
+}
+
 .carousel__title {
-  padding: 0.8rem 1rem 0;
+  padding: 0.8rem 0.6rem;
 }
 
 .carousel__slider {
