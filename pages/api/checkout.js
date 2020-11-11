@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     // res.end(JSON.stringify({ name: 'John Doe' }))
     const product = req.body
     const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['ideal'],
+        payment_method_types: ['card'],
         line_items: [{
             price_data: {
                 currency: product.price.currency,
